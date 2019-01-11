@@ -37,7 +37,7 @@ public class MainDefinitivo {
 
 		XMLStreamReader streamReader = factory.createXMLStreamReader(file);
 
-		PrintStream fichero = new PrintStream(new File("GsmRelation.txt"));
+		PrintStream fichero = new PrintStream(new File("MainDefinitivo.txt"));
 		System.setOut(fichero);
 
 		while (streamReader.hasNext()) {
