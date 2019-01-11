@@ -15,7 +15,9 @@ public class GsmRelation {
 
 	public static final String attributes = "attributes";
 	public static final String GsmRelation = "GsmRelation";
-
+	public static final String vsDataGsmRelation = "vsDataGsmRelation";
+	
+	
 	static int num = 0;
 
 	public static ArrayList<String> lista = new ArrayList<String>();
@@ -100,7 +102,7 @@ public class GsmRelation {
 	private static void print(XMLStreamReader streamReader) throws XMLStreamException {
 		if (streamReader.hasName()) {
 			if (streamReader.isStartElement()) {
-				if (streamReader.getName().getLocalPart().equals(attributes)) {
+				if (streamReader.getName().getLocalPart().equals(attributes) || streamReader.getName().getLocalPart().equals("vsDataGsmRelation")) {
 					System.out.print("");
 				} else {
 					lista.add(streamReader.getName().getLocalPart());
