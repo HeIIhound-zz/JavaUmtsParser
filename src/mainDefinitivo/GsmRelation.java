@@ -17,17 +17,17 @@ public class GsmRelation {
 	public static final String GsmRelation = "GsmRelation";
 
 	static int num = 0;
-	
+
 	public static ArrayList<String> lista = new ArrayList<String>();
-	
-	// esto esta bien
+	public static ArrayList<String> list2 = new ArrayList<String>();
+
 	public static void main(String[] args) throws FileNotFoundException, XMLStreamException {
 
 		// System.out.println("Introduzca el nombre o la ruta del fichero");
 		// Scanner scan = new Scanner(System.in);
 		// String filename = scan.nextLine();
 		// scan.close();
-		
+
 		FileInputStream file = new FileInputStream(
 				"C:\\Users\\usuario\\Documents\\zipPruebas\\ExportE3G-ARA10R01_18-12-01.xml");
 
@@ -35,7 +35,7 @@ public class GsmRelation {
 
 		XMLStreamReader streamReader = factory.createXMLStreamReader(file);
 
-		PrintStream fichero = new PrintStream(new File("GsmRelation.txt"));// vsDataIubLink
+		PrintStream fichero = new PrintStream(new File("GsmRelation.txt"));
 		System.setOut(fichero);
 
 		while (streamReader.hasNext()) {
@@ -59,21 +59,28 @@ public class GsmRelation {
 
 						if (streamReader.isEndElement()) {
 							if (streamReader.getName().getLocalPart().equals(GsmRelation)) {
-								if(num<1){
-									for(String e : lista) {
-											System.out.println(e.trim());
+								if (num < 1) {
+									int ultimo = 1;
+									for (String e : lista) {
+
+										if (ultimo++ == lista.size()) {
+											System.out.print('"' + e + '"' + "\n");
+										} else {
+											System.out.print('"' + e + '"' + ",");
+										}
 									}
-									//System.out.print(lista.toString());
 									lista.clear();
-									num++;
 								}
-								if(num < 2) {
-									num++;
-									if(num == 2) {
-									System.exit(0);
+								int ultimo = 1;
+								for (String e : list2) {
+									if (ultimo++ == list2.size()) {
+										System.out.print('"' + e + '"' + "\n");
+									} else {
+										System.out.print('"' + e + '"' + ",");
 									}
 								}
-								//System.exit(0);
+								list2.clear();
+								num++;
 								break;
 							}
 						}
@@ -88,7 +95,7 @@ public class GsmRelation {
 			}
 		}
 
-	}// IubLink
+	}// gsmRelation
 
 	private static void print(XMLStreamReader streamReader) throws XMLStreamException {
 		if (streamReader.hasName()) {
@@ -96,11 +103,9 @@ public class GsmRelation {
 				if (streamReader.getName().getLocalPart().equals(attributes)) {
 					System.out.print("");
 				} else {
-					//System.out.print('"' + streamReader.getName().getLocalPart() + '"' + ",");
-					//lista.add('"'+streamReader.getName().getLocalPart()+'"');
+					lista.add(streamReader.getName().getLocalPart());
 					if (streamReader.getAttributeCount() != 0) {
-						//System.out.print(streamReader.getAttributeValue(0));
-						//lista.add('"'+streamReader.getAttributeValue(0)+'"');
+						list2.add(streamReader.getAttributeValue(0));
 					} else {
 						System.out.print("");
 					}
@@ -112,15 +117,11 @@ public class GsmRelation {
 		}
 		if (streamReader.hasText()) {
 			if (streamReader.getEventType() == XMLEvent.CHARACTERS) {
-				// System.out.print(streamReader.getText().trim());
-				//System.out.println(String.valueOf(streamReader.getText().trim()));
-				
-				if(streamReader.getText() == "\\r") {
-					System.out.println("1");
-				}else{
-					System.out.println("2");
+				if (streamReader.getText().contains("\n")) {
+
+				} else {
+					list2.add(streamReader.getText().trim());
 				}
-				System.exit(0);
 			}
 		} else {
 			System.out.print("");
