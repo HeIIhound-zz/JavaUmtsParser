@@ -102,7 +102,7 @@ public class GsmRelation {
 	private static void print(XMLStreamReader streamReader) throws XMLStreamException {
 		if (streamReader.hasName()) {
 			if (streamReader.isStartElement()) {
-				if (streamReader.getName().getLocalPart().equals(attributes) || streamReader.getName().getLocalPart().equals("vsDataGsmRelation")) {
+				if (streamReader.getName().getLocalPart().equals(attributes) || streamReader.getName().getLocalPart().equals(vsDataGsmRelation)) {
 					System.out.print("");
 				} else {
 					lista.add(streamReader.getName().getLocalPart());

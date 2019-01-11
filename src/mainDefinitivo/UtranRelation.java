@@ -11,12 +11,12 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
 
-public class MainDefinitivo {
+public class UtranRelation {
 
 	public static final String attributes = "attributes";
-	public static final String GsmRelation = "GsmRelation";
-	public static final String vsDataGsmRelation = "vsDataGsmRelation";
-	
+	public static final String UtranRelation = "UtranRelation";
+	public static final String vsDataUtranRelation = "vsDataUtranRelation";
+	public static final String hcsSib11Config = "hcsSib11Config";
 	
 	static int num = 0;
 
@@ -37,7 +37,7 @@ public class MainDefinitivo {
 
 		XMLStreamReader streamReader = factory.createXMLStreamReader(file);
 
-		PrintStream fichero = new PrintStream(new File("GsmRelation.txt"));
+		PrintStream fichero = new PrintStream(new File("UtranRelation.txt"));
 		System.setOut(fichero);
 
 		while (streamReader.hasNext()) {
@@ -54,13 +54,13 @@ public class MainDefinitivo {
 
 		while (true) {
 			if (streamReader.isStartElement()) {
-				if (streamReader.getName().getLocalPart().equals(GsmRelation)) {
+				if (streamReader.getName().getLocalPart().equals(UtranRelation)) {
 					while (streamReader.hasNext()) {
 
 						print(streamReader);
 
 						if (streamReader.isEndElement()) {
-							if (streamReader.getName().getLocalPart().equals(GsmRelation)) {
+							if (streamReader.getName().getLocalPart().equals(UtranRelation)) {
 								if (num < 1) {
 									int ultimo = 1;
 									for (String e : lista) {
@@ -97,12 +97,12 @@ public class MainDefinitivo {
 			}
 		}
 
-	}// gsmRelation
+	}// UtranRelation
 
 	private static void print(XMLStreamReader streamReader) throws XMLStreamException {
 		if (streamReader.hasName()) {
 			if (streamReader.isStartElement()) {
-				if (streamReader.getName().getLocalPart().equals(attributes) || streamReader.getName().getLocalPart().equals(vsDataGsmRelation)) {
+				if (streamReader.getName().getLocalPart().equals(attributes) || streamReader.getName().getLocalPart().equals(vsDataUtranRelation) || streamReader.getName().getLocalPart().equals(hcsSib11Config)) {
 					System.out.print("");
 				} else {
 					lista.add(streamReader.getName().getLocalPart());
